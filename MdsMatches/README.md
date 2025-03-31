@@ -1,8 +1,10 @@
 # Скрапінг збігів із сайту MyHeritage
 
-Використовується розширення chrome (Web Scrapper)[https://chromewebstore.google.com/detail/web-scraper-free-web-scra/jnhgnonknehpejjnehehllkliplmbmhn?hl=en]
+Використовується розширення chrome [Web Scrapper](https://chromewebstore.google.com/detail/web-scraper-free-web-scra/jnhgnonknehpejjnehehllkliplmbmhn?hl=en)
 
 ## Створити CSV файл
+
+Ім'я файлу: `matches.csv`
 
 Заголовок має бути такого виду:
 
