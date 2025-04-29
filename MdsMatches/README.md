@@ -1,3 +1,5 @@
+r'\s*\[.*\]$'
+
 # Скрапінг збігів із сайту MyHeritage
 
 Використовується розширення chrome [Web Scrapper](https://chromewebstore.google.com/detail/web-scraper-free-web-scra/jnhgnonknehpejjnehehllkliplmbmhn?hl=en)
