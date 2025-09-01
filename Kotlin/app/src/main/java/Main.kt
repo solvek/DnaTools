@@ -2,6 +2,20 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.model.Spreadsheet
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.json.gson.GsonFactory
+import com.google.api.services.sheets.v4.model.Sheet
+import com.google.api.services.sheets.v4.model.ValueRange
+
+fun Sheets.parseSheet(sheet: Sheet) {
+    val id = sheet.properties.sheetId
+    val name = sheet.properties.title
+    val location = name.split("-")[1].trim()
+
+    val range = "'$name'!A1:Z"
+    val response: ValueRange = spreadsheets().values()
+        .get(Keys.spreadsheetId, range)
+        .setKey(Keys.apiKey)
+        .execute()
+}
 
 fun main() {
 
@@ -18,8 +32,7 @@ fun main() {
         .setKey(Keys.apiKey)
         .execute()
 
-    println("Листи у таблиці:")
-    spreadsheet.sheets.forEach {
-        println("- " + it.properties.title)
+    spreadsheet.sheets.forEach{
+        service.parseSheet(it)
     }
 }
