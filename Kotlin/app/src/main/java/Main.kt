@@ -29,6 +29,7 @@ fun main() {
 
     val spreadsheet: Spreadsheet = service.spreadsheets()
         .get(Keys.spreadsheetId)
+        .setIncludeGridData(true)
         .setKey(Keys.apiKey)
         .execute()
 
