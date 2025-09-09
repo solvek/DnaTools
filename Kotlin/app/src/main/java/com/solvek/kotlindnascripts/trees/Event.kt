@@ -1,4 +1,4 @@
-package com.solvek.kotlindnascripts
+package com.solvek.kotlindnascripts.trees
 
 data class Event(
     val date: String,
