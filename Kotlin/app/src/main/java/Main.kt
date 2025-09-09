@@ -1,3 +1,4 @@
+import com.solvek.kotlindnascripts.tools.spovidky
 import com.solvek.kotlindnascripts.tools.tree2plain
 
 fun main(args: Array<String>) {
@@ -10,6 +11,7 @@ fun main(args: Array<String>) {
 
     when(tool) {
         "tree2plain" -> tree2plain()
+        "spovidky" -> spovidky()
         else -> {
             println("Unknown tool $tool")
             return
