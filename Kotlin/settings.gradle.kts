@@ -20,5 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "KotlinDnaScripts"
-include(":app")
 include(":scripts")

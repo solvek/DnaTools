@@ -21,7 +21,7 @@ class ChatSession(
     private val client = OkHttpClient()
     private val json = Json { ignoreUnknownKeys = true }
 
-    private val messages = mutableListOf<com.solvek.kotlindna.chatgpt.ChatMessage>()
+    private val messages = mutableListOf<ChatMessage>()
 
     /** Додає системний промпт (робиш це один раз на початку). */
     fun system(text: String) {
@@ -75,7 +75,7 @@ class ChatSession(
             .build()
 
         client.newCall(request).execute().use { resp ->
-            val respBody = resp.body?.string() ?: throw IOException("Empty body")
+            val respBody = resp.body.string()
             if (!resp.isSuccessful) {
                 throw IOException("HTTP ${resp.code}: $respBody")
             }
@@ -86,15 +86,7 @@ class ChatSession(
     /** Внутрішній метод: виклик API й повернення контенту as текст. */
     private fun callApiAndGetText(): String {
         val response = sendRaw()
-        val contentParts = response.choices.firstOrNull()
-            ?.message
-            ?.content
-            ?: emptyList()
-
-        // Склеюємо всі текстові фрагменти у відповідь
-        return contentParts
-            .filter { it.type == "text" && it.text != null }
-            .joinToString(separator = "") { it.text!! }
+        return response.choices.first().message.content
     }
 
     companion object {

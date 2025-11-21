@@ -2,12 +2,8 @@ package com.solvek.kotlindna.tools
 
 import com.solvek.kotlindna.Keys
 import com.solvek.kotlindna.chatgpt.ChatSession
+import com.solvek.kotlindna.chatgpt.ChatSession.Companion.asDataUrl
 import java.io.File
-import kotlin.collections.filter
-import kotlin.collections.forEach
-import kotlin.collections.sortedBy
-import kotlin.text.lowercase
-import kotlin.text.trimIndent
 
 val directory = "122484632"
 val output = "ovadne_raion"
@@ -30,14 +26,25 @@ fun ocr_marriages() {
     національність нареченої(fe), вік нареченої(fa), чи мала дітей(fc), номер шлюбу нареченої(числом, fm).
     Повертай повністю правильний json, нічого зайвого.
     Дата має бути у форматі YYYY-MM-DD, кількість дітей теж переводь у число, якщо нема - 0.
+    Перекладай усі прізвища на українську. Імена теж перекладай та адаптуй до сучасних українських імен.
+    По батькові переводь просто у ім'я батька.
     """.trimIndent()
     )
 
-    File(directory).listFiles()
+    val folder = File("ocr/$directory")
+    folder.listFiles()
         ?.filter { it.isFile }
         ?.sortedBy { it.name.lowercase() }
-        ?.forEach { fileName ->
-            println(fileName.name)
+        ?.forEach { file ->
+            val parts = file.nameWithoutExtension.split("_")
+            val ign = parts[0]
+            val scan = parts[1].trimStart('0').ifEmpty { "0" }
+
+            println("Processing: $ign, $scan")
+
+            val dataUrl = file.asDataUrl()
+            val jsonReply = chat.sendUserImageFromDataUrl(dataUrl)
+            println(jsonReply)
         }
 
 //    CsvOutput("ocr/$output M.csv").use { csv ->
