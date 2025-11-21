@@ -42,16 +42,16 @@ fun ocr_marriages() {
 
         File("ocr/$directory").listFiles()
             ?.filter { it.isFile }
-            ?.sortedBy { it.name.lowercase() }
             ?.forEach { file ->
                 val parts = file.nameWithoutExtension.split("_")
                 val ign = parts[0].toInt()
                 val scan = parts[1].trimStart('0').ifEmpty { "0" }.toInt()
 
-                if (db.exists(ign, scan)){
-                    return
-                }
                 println("Processing: $ign, $scan")
+                if (db.exists(ign, scan)){
+                    println("Already exists in db")
+                    return@forEach
+                }
 
                 val dataUrl = file.asDataUrl()
                 val jsonReply = chat.sendUserImageFromDataUrl(dataUrl)

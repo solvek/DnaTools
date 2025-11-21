@@ -8,6 +8,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.IOException
 import java.util.Base64
+import java.util.concurrent.TimeUnit
 
 /**
  * Простий клієнт чату з історією.
@@ -18,7 +19,14 @@ class ChatSession(
     private val baseUrl: String = "https://api.openai.com/v1/chat/completions"
 ) {
 
-    private val client = OkHttpClient()
+    private val client by lazy {
+        OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(300, TimeUnit.SECONDS)
+            .callTimeout(600, TimeUnit.SECONDS)
+            .build()
+    }
     private val json = Json { ignoreUnknownKeys = true }
 
     private val messages = mutableListOf<ChatMessage>()
