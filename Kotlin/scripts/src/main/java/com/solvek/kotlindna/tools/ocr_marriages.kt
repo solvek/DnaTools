@@ -1,7 +1,6 @@
 package com.solvek.kotlindna.tools
 
 import com.solvek.kotlindna.Keys
-import com.solvek.kotlindna.chatgpt.ChatCompletionResponse
 import com.solvek.kotlindna.chatgpt.ChatSession
 import com.solvek.kotlindna.chatgpt.ChatSession.Companion.asDataUrl
 import com.solvek.kotlindna.marriages.Marriage
@@ -10,7 +9,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 
 const val directory = "122484632"
-const val raion = "ovadne_raion2"
+const val raion = "ovadne_raion"
 const val signature = "Р-3247-2-1643"
 
 @Suppress("FunctionName")
