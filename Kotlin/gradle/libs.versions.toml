@@ -8,6 +8,7 @@ kotlin = "2.2.21"
 kotlinxSerializationJson = "1.9.0"
 okhttp = "5.3.2"
 jetbrainsKotlinJvm = "2.2.21"
+sqlite = "3.46.0.0"
 
 [libraries]
 google-api-client = { module = "com.google.api-client:google-api-client", version.ref = "googleApiClient" }
@@ -16,6 +17,7 @@ google-http-client-gson = { module = "com.google.http-client:google-http-client-
 google-oauth-client = { module = "com.google.oauth-client:google-oauth-client", version.ref = "googleOauthClient" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

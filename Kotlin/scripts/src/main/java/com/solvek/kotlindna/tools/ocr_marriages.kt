@@ -1,12 +1,17 @@
 package com.solvek.kotlindna.tools
 
 import com.solvek.kotlindna.Keys
+import com.solvek.kotlindna.chatgpt.ChatCompletionResponse
 import com.solvek.kotlindna.chatgpt.ChatSession
 import com.solvek.kotlindna.chatgpt.ChatSession.Companion.asDataUrl
+import com.solvek.kotlindna.marriages.Marriage
+import com.solvek.kotlindna.marriages.MarriagesDao
+import kotlinx.serialization.json.Json
 import java.io.File
 
-val directory = "122484632"
-val output = "ovadne_raion"
+const val directory = "122484632"
+const val raion = "ovadne_raion2"
+const val signature = "Р-3247-2-1643"
 
 @Suppress("FunctionName")
 fun ocr_marriages() {
@@ -31,23 +36,30 @@ fun ocr_marriages() {
     """.trimIndent()
     )
 
-    val folder = File("ocr/$directory")
-    folder.listFiles()
-        ?.filter { it.isFile }
-        ?.sortedBy { it.name.lowercase() }
-        ?.forEach { file ->
-            val parts = file.nameWithoutExtension.split("_")
-            val ign = parts[0]
-            val scan = parts[1].trimStart('0').ifEmpty { "0" }
+    val json = Json { ignoreUnknownKeys = true }
 
-            println("Processing: $ign, $scan")
+    MarriagesDao(raion).use { db ->
+        db.ensure()
 
-            val dataUrl = file.asDataUrl()
-            val jsonReply = chat.sendUserImageFromDataUrl(dataUrl)
-            println(jsonReply)
-        }
+        File("ocr/$directory").listFiles()
+            ?.filter { it.isFile }
+            ?.sortedBy { it.name.lowercase() }
+            ?.forEach { file ->
+                val parts = file.nameWithoutExtension.split("_")
+                val ign = parts[0].toInt()
+                val scan = parts[1].trimStart('0').ifEmpty { "0" }.toInt()
 
-//    CsvOutput("ocr/$output M.csv").use { csv ->
-//
-//    }
+                if (db.exists(ign, scan)){
+                    return
+                }
+                println("Processing: $ign, $scan")
+
+                val dataUrl = file.asDataUrl()
+                val jsonReply = chat.sendUserImageFromDataUrl(dataUrl)
+                println(jsonReply)
+
+                val marriage = json.decodeFromString(Marriage.serializer(), jsonReply)
+                db.insert(ign, scan, signature, marriage)
+            }
+    }
 }
