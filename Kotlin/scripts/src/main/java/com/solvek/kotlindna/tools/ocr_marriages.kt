@@ -42,6 +42,7 @@ fun ocr_marriages() {
 
         File("ocr/$directory").listFiles()
             ?.filter { it.isFile }
+            ?.sortedBy { it.name.lowercase() }
             ?.forEach { file ->
                 val parts = file.nameWithoutExtension.split("_")
                 val ign = parts[0].toInt()

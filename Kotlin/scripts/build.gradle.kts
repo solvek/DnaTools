@@ -23,4 +23,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.sqlite.jdbc)
+    implementation(libs.slf4j.simple)
 }
