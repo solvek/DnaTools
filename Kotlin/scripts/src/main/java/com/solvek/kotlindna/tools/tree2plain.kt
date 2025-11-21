@@ -1,11 +1,12 @@
-package com.solvek.kotlindnascripts.tools
+package com.solvek.kotlindna.tools
 
 import com.google.api.services.sheets.v4.model.Sheet
-import com.solvek.kotlindnascripts.trees.CommentRow
-import com.solvek.kotlindnascripts.trees.EmptyTreeRow
-import com.solvek.kotlindnascripts.gspreadsheet.SpreadsheetSource
-import com.solvek.kotlindnascripts.trees.TreeRow
-import com.solvek.kotlindnascripts.trees.parseTeeRow
+import com.solvek.kotlindna.Keys
+import com.solvek.kotlindna.gspreadsheet.SpreadsheetSource
+import com.solvek.kotlindna.trees.CommentRow
+import com.solvek.kotlindna.trees.EmptyTreeRow
+import com.solvek.kotlindna.trees.TreeRow
+import com.solvek.kotlindna.trees.parseTeeRow
 
 private fun handleSheet(sheet: Sheet) {
     val id = sheet.properties.sheetId

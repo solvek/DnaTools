@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    kotlin("plugin.serialization") version "1.9.23"
 }
 
 android {
-    namespace = "com.solvek.kotlindnascripts"
+    namespace = "com.solvek.kotlindna"
     compileSdk = 36
 
     defaultConfig {
@@ -40,6 +41,9 @@ dependencies {
     implementation(libs.google.api.client)
     implementation(libs.google.oauth.client)
     implementation(libs.google.http.client.gson)
+
+    implementation(libs.okhttp)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.grpc.context)
     implementation(libs.grpc.api)

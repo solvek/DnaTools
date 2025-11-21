@@ -1,5 +1,8 @@
-import com.solvek.kotlindnascripts.tools.spovidky
-import com.solvek.kotlindnascripts.tools.tree2plain
+package com.solvek.kotlindna
+
+import com.solvek.kotlindna.tools.ocr_marriages
+import com.solvek.kotlindna.tools.spovidky
+import com.solvek.kotlindna.tools.tree2plain
 
 fun main(args: Array<String>) {
     if (args.isEmpty()){
@@ -12,6 +15,7 @@ fun main(args: Array<String>) {
     when(tool) {
         "tree2plain" -> tree2plain()
         "spovidky" -> spovidky()
+        "ocr_marriages" -> ocr_marriages()
         else -> {
             println("Unknown tool $tool")
             return

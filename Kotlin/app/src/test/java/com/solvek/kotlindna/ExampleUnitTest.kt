@@ -1,4 +1,4 @@
-package com.solvek.kotlindnascripts
+package com.solvek.kotlindna
 
 import org.junit.Test
 

@@ -1,15 +1,15 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package com.solvek.kotlindnascripts.tools
+package com.solvek.kotlindna.tools
 
-import Keys
 import com.google.api.services.sheets.v4.model.CellData
-import com.solvek.kotlindnascripts.csv.CsvOutput
-import com.solvek.kotlindnascripts.gspreadsheet.SpreadsheetSource
+import com.solvek.kotlindna.Keys
+import com.solvek.kotlindna.csv.CsvOutput
+import com.solvek.kotlindna.gspreadsheet.SpreadsheetSource
 
 fun spovidky(){
     val spreadsheetId = "1wCKnRCDV8eiPDM70Hgcoa3Ofz8TRjbY9EmO_Pd33RNs"
-    val sheetId = 1216283179
+    val sheetId = 169640783
     val source = SpreadsheetSource(spreadsheetId, Keys.apiKey)
 
     val sheet = source.sheets.find { it.properties.sheetId == sheetId }
@@ -19,8 +19,8 @@ fun spovidky(){
     var stan: String? = null
     var page: Int? = null
 
-    CsvOutput("${sheet!!.properties.title} - 1912 L.csv").use { csv ->
-        csv.newFile("Стан", "Ст", "Прізвище", "Ім'я", "Батько", "Примітка", "Рік народження")
+    CsvOutput("${sheet!!.properties.title} L.csv").use { csv ->
+        csv.newFile("Стан", "Ск", "Прізвище", "Ім'я", "Батько", "Примітка", "Рік народження")
 
         sheet
             .data[0]

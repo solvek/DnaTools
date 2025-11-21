@@ -1,8 +1,7 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package com.solvek.kotlindnascripts.trees
+package com.solvek.kotlindna.trees
 
-import android.annotation.SuppressLint
 import com.google.api.services.sheets.v4.model.CellData
 import kotlin.text.get
 
@@ -16,7 +15,6 @@ data class TreeRow(
     val text: String,
     val links: List<Link>
 ): BaseTreeRow(){
-    @SuppressLint("NewApi")
     fun parse(rowNumber: Int): Person {
         val regex = "(?<isFemale>Ж\\s)?(?<hasMarriage>[SMМП]((?<marriageDate>(\\d{1,2}\\.\\d{1,2}\\.)?\\d{4})(?<marriageRef>\\S*))?\\s)?(?<rawName>[^,]+)(,\\s((?<birthDate>(\\d{1,2}\\.\\d{1,2}\\.)?\\d{4})(?<birthRef>[^\\s,-]*))?(-(?<deathDate>(\\d{1,2}\\.\\d{1,2}\\.)?\\d{4})(?<deathRef>[^\\s,]*))?(,\\s(?<location>[^,=]+))?)?".toRegex()
         val m = regex.find(text)!!
@@ -42,7 +40,6 @@ data class TreeRow(
         )
     }
 
-    @SuppressLint("NewApi")
     private fun MatchResult.hasGroup(groupName: String) =
         groups[groupName] != null
 

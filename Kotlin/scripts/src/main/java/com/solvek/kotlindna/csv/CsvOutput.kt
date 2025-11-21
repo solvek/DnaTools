@@ -1,4 +1,4 @@
-package com.solvek.kotlindnascripts.csv
+package com.solvek.kotlindna.csv
 
 import java.io.BufferedWriter
 import java.io.Closeable

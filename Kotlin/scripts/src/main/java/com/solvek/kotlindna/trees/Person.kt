@@ -1,4 +1,4 @@
-package com.solvek.kotlindnascripts.trees
+package com.solvek.kotlindna.trees
 
 data class Person(
     val rowNumber: Int,
