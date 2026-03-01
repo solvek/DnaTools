@@ -31,6 +31,18 @@ class ChatSession(
 
     private val messages = mutableListOf<ChatMessage>()
 
+    /**
+     * Скидає історію повідомлень (але зберігає системний промпт якщо він був першим).
+     * Корисно при обробці нової книги щоб не переповнювати контекст.
+     */
+    fun reset() {
+        val systemMessage = messages.firstOrNull { it.role == "system" }
+        messages.clear()
+        if (systemMessage != null) {
+            messages += systemMessage
+        }
+    }
+
     /** Додає системний промпт (робиш це один раз на початку). */
     fun system(text: String) {
         messages += ChatMessage(
