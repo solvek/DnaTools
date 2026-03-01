@@ -54,12 +54,17 @@ fun ocr_marriages() {
                     return@forEach
                 }
 
-                val dataUrl = file.asDataUrl()
-                val jsonReply = chat.sendUserImageFromDataUrl(dataUrl)
-                println(jsonReply)
+                try {
+                    val dataUrl = file.asDataUrl()
+                    val jsonReply = chat.sendUserImageFromDataUrl(dataUrl)
+                    println(jsonReply)
 
-                val marriage = json.decodeFromString(Marriage.serializer(), jsonReply)
-                db.insert(ign, scan, signature, marriage)
+                    val marriage = json.decodeFromString(Marriage.serializer(), jsonReply)
+                    db.insert(ign, scan, signature, marriage)
+                }
+                catch(ex: Exception){
+                    System.err.println("Error: $ex")
+                }
             }
     }
 }
