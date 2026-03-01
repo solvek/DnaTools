@@ -26,7 +26,7 @@ data class NotariusPerson(
 fun ocr_notarius() {
     val chat = ChatSession(
         apiKey = Keys.chatGptApiKey,
-        model = "gpt-5.2"
+        model = "gpt-4.1"
     )
 
     chat.system(
@@ -90,7 +90,7 @@ fun ocr_notarius() {
                             val persons = json.decodeFromString(
                                 ListSerializer(NotariusPerson.serializer()),
                                 jsonReply
-                            )
+                            ).filter { !it.surname.isNullOrBlank() }
 
                             println("  Знайдено осіб: ${persons.size}")
 
