@@ -26,7 +26,7 @@ data class NotariusPerson(
 fun ocr_notarius() {
     val chat = ChatSession(
         apiKey = Keys.chatGptApiKey,
-        model = "gpt-4o"
+        model = "gpt-5.2"
     )
 
     chat.system(
@@ -37,7 +37,7 @@ fun ocr_notarius() {
         Each object must have these fields:
           surname - last name,
           name - first name,
-          patronymic - father's name only (without suffix),
+          patronymic - father's name only (without suffix, not "Васильович", "Василевич", "Васильев", but simple "Василь"),
           settlement - village or city name,
           status - social status (селянин/дворянин/міщанин/купець etc.),
           page_ref - where on the page (e.g. "ліва колонка", "права колонка").
@@ -51,7 +51,7 @@ fun ocr_notarius() {
     val rootDir = File(notariusRootDir)
 
     CsvOutput("notarius_persons.csv").use { csv ->
-        csv.newFile("Книга", "Файл", "Прізвище", "Ім'я", "По батькові", "Населений пункт", "Статус", "Посилання на сторінку")
+        csv.newFile("url", "Файл", "Прізвище", "Ім'я", "По батькові", "Населений пункт", "Статус", "Посилання на сторінку")
 
         rootDir.listFiles()
             ?.filter { it.isDirectory }
@@ -63,7 +63,10 @@ fun ocr_notarius() {
                 // Нова сесія для кожної книги щоб не переповнювати контекст
                 chat.reset()
 
+                val bookUrl = "https://www.familysearch.org/uk/records/images/search-results?imageGroupNumbers=$bookName"
+
                 bookDir.listFiles()
+                    ?.take(3)
                     ?.filter { it.isFile && it.extension.lowercase() in listOf("jpg", "jpeg", "png") }
                     ?.sortedBy { it.name.lowercase() }
                     ?.forEach { file ->
@@ -93,7 +96,7 @@ fun ocr_notarius() {
 
                             persons.forEach { person ->
                                 csv.append(
-                                    bookName,
+                                    bookUrl,
                                     file.name,
                                     person.surname ?: "",
                                     person.name ?: "",
