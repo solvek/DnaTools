@@ -2,6 +2,7 @@ package com.solvek.kotlindna
 
 import com.solvek.kotlindna.tools.ocr_marriages
 import com.solvek.kotlindna.tools.spovidky
+import com.solvek.kotlindna.tools.simple_test
 import com.solvek.kotlindna.tools.tree2plain
 
 fun main(args: Array<String>) {
@@ -13,6 +14,7 @@ fun main(args: Array<String>) {
     val tool = args[0]
 
     when(tool) {
+        "test" -> simple_test()
         "tree2plain" -> tree2plain()
         "spovidky" -> spovidky()
         "ocr_marriages" -> ocr_marriages()
